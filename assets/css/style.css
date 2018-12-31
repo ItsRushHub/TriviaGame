@@ -1,8 +1,7 @@
-h1 {
-    text-align: center;
-    font-family: 'Raleway', sans-serif;
-    font-size: 60px;
+html, body {
+height: 100%;
 }
+
 
 /* .bkgrd {
     background-color: lightsalmon;
@@ -13,6 +12,83 @@ h1 {
     padding-left: 200px;
     padding-right: 100px;
 } */
+
+
+#bkgrd {
+    margin:2.5% auto;
+    background-color: lightsalmon;
+    width: 960px;
+    height: 100%;
+  }
+  
+#bkgrdwrapper {
+    position: relative;
+  }
+
+button {
+    margin: auto;
+    display: block;
+    width: 20%;
+    height: 30px;
+    justify-content: center;
+    cursor: pointer;
+    background: lightgrey;
+    color: white;
+    font-size: 20px;
+   
+  }
+  
+img {
+    height:200px;
+  }
+  
+h1 {
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    font-size: 80px;
+    color: darkred;
+    font-weight: bolder;
+}
+
+
+
+
+h2 {
+    font-size: 35px;
+    margin-bottom: 25px;
+  }
+  
+h3 {
+    font-size: 25px;
+    margin-bottom: 10px;
+  }
+
+
+
+
+
+
+
+
+
+#start {
+    margin-top: 500px;
+    text-align: center;
+  }
+  
+button:hover {
+    border:2px solid black;
+    background:darkred;
+  }
+
+
+
+
+
+
+
+
+
 
 
 
