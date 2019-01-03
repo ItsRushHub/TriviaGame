@@ -41,6 +41,11 @@ button {
 img {
     height:200px;
   }
+
+img src {
+  align-content: center;
+}  
+
   
 h1 {
     font-family: 'Raleway', sans-serif;
@@ -56,16 +61,15 @@ h1 {
 h2 {
     font-size: 35px;
     margin-bottom: 25px;
+    text-align: center;
+
   }
   
 h3 {
     font-size: 25px;
     margin-bottom: 10px;
+    text-align: center;
   }
-
-
-
-
 
 
 
