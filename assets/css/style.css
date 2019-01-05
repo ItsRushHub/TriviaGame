@@ -14,14 +14,14 @@ height: 100%;
 } */
 
 
-#bkgrd {
+.bkgrd {
     margin:2.5% auto;
     background-color: lightsalmon;
     width: 960px;
     height: 100%;
   }
   
-#bkgrdwrapper {
+.bkgrdwrapper {
     position: relative;
   }
 
@@ -59,6 +59,7 @@ h1 {
 
 
 h2 {
+    font-family: 'Raleway', sans-serif;
     font-size: 35px;
     margin-bottom: 25px;
     text-align: center;

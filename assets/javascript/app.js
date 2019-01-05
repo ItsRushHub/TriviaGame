@@ -1,26 +1,33 @@
-var panel = $('#quizarea');
-var countStartNumber = 10;
+// Click button for starting the game
+$(document).ready(function() {
+  $("#start").click(function() {
+    $('.bkgrdwrapper').prepend('<h2>Time Remaining: <span id="counter">20</span> Seconds</h2>');
+    game.loadQuestion(),
+    alert("Game is starting!");
 
-
-
-// Click events
-
-$(document).on('click', '#restart', function(e) {
-  game.reset();
-});
-
-$(document).on('click', '.answer-button', function(e) {
-  game.clicked(e);
-});
-
-$(document).on('click', '#start', function(e) {
-  $('#bkgrdwrapper').prepend('<h2>Time Remaining: <span id="counter-number">10</span> Seconds</h2>');
-  game.loadQuestion();
+    console.log(start);
+  });
 });
 
 
+// The timer starts
 
+var startCounter = 20;
+  var elem = document.getElementById("start");
 
+  var timerId = setInterval (countdown, 1000);
+
+  function countdown() {
+    if (timeLeft === 0) {
+      clearTimeout(timerId);
+      game.loadQuestion();
+    }
+
+    else {
+      elem.innerHTML = timeLeft + ' seconds remaining';
+        timeLeft--;
+    }
+  };
 
 
 // Set of questions
@@ -80,117 +87,76 @@ var questions = [{
       image: "assets/images/jayzalbum.jpg"
     }];
 
+// Load questions when the game starts
+
+var game = {
+  setOfQestions: question,
+  current: 0,
+  counter: startCounter,
+  correct: 0,
+  incorrect: 0,
+  countdown: function() {
+    game.counterClock--;
+    $("#counter").html(game.counterClock);
+
+    if (game.counterClock === 0) {
+      Console.log('Time I Up');
+      game.timeUp();
+    }
+  },
+
+  loadQuestion: function() {
+    timer = setInterval (game.countdown, 2000);
+    panel.html('<h2>' + setOfQestions[this.current].question + '</h2>' );
+    for (var i = 0; i !== correctAnswer; i++) {
+    }
+  },
+
+  theNextQuestion: function() {
+    game.counterClock = startCounter
+    $("#counter").html(game.counterClock);
+    game.current++;
+    game.loadQuestion();
+  },
+
+// If the time is up clear the timer
+
+  timeUp: function() {
+    clearInterval(timer);
+    $("#counter").html(game.counterClock);
+
+    if (game.current === questions.length - 1){
+      setTimeout(game.results, 2000);
+    }
+
+    else {
+      setTimeout(game.theNextQuestion, 2000);
+
+    }
+  },
+
+  results: function(){
+    clearInterval(timer);
+
+  },
 
 
-    var game = {
-      questions:questions,
-      currentQuestion:0,
-      counter:countStartNumber,
-      correct:0,
-      incorrect:0,
-      countdown: function(){
-        game.counter--;
-        $('#counter-number').html(game.counter);
-    
-        if (game.counter === 0){
-          console.log('TIME UP');
-          game.timeUp();
-        }
-      },
-
-      loadQuestion: function(){
-        timer = setInterval(game.countdown, 1000);
-        panel.html('<h2>' + questions[this.currentQuestion].question + '</h2>' );
-        for (var i = 0; i<questions[this.currentQuestion].answers.length; i++){
-          panel.append('<button class="answer-button" id="button"' + 'data-name="' + questions[this.currentQuestion].answers[i] + '">' + questions[this.currentQuestion].answers[i]+ '</button>');
-        }
-      },
-
-      nextQuestion: function(){
-        game.counter = countStartNumber;
-        $('#counter-number').html(game.counter);
-        game.currentQuestion++;
-        game.loadQuestion();
-      },
-
-      timeUp: function (){
-        clearInterval(timer);
-        $('#counter-number').html(game.counter);
-    
-        panel.html('<h2>Out of Time!</h2>');
-        panel.append('<h3>The Correct Answer is: ' + questions[this.currentQuestion].correctAnswer);
-        panel.append('<img src="' + questions[this.currentQuestion].image + '" />');
-          console.log (game.currentQuestion)
-          console.log (questions.length);
 
 
-        if (game.currentQuestion === questions.length - 1){
-          setTimeout(game.results, 2 * 1000);
-        } else {
-          setTimeout(game.nextQuestion, 2 * 1000);
-        }
-      },
+};
 
-      results: function() {
-        clearInterval(timer);
-    
-        panel.html('<h2>All done, heres how you did!</h2>');
-        $('#counter-number').html(game.counter);
-        panel.append('<h3>Correct Answers: ' + game.correct + '</h3>');
-        panel.append('<h3>Incorrect Answers: ' + game.incorrect + '</h3>');
-        panel.append('<h3>Unanswered: ' + (questions.length - (game.incorrect + game.correct)) + '</h3>');
-        panel.append('<br><button id="restart">Restart</button>');
-      },
 
-      clicked: function(e) {
-        clearInterval(timer);
-    
 
-        if ($(e.target).data("name") === questions[this.currentQuestion].correctAnswer){
-          this.answeredCorrectly();
-        } 
-        
-        else {
-          this.answeredIncorrectly();
-        }
-      },
 
-      answeredIncorrectly: function() {
-        game.incorrect++;
-        clearInterval(timer);
-        panel.html('<h2>Incorrect!</h2>');
-        panel.append('<h3>The Correct Answer is: ' + questions[game.currentQuestion].correctAnswer + '</h3>');
-        panel.append('<img src="' + questions[game.currentQuestion].image + '" />');
-    
-        if (game.currentQuestion === questions.length - 1){
-          setTimeout(game.results, 2 * 1000);
-        } 
-        
-        else {
-          setTimeout(game.nextQuestion, 2 * 1000);
-        }
-      },
 
-      answeredCorrectly: function(){
-        clearInterval(timer);
-        game.correct++;
-        panel.html('<h2>Correct!</h2>');
-        panel.append('<img src="' + questions[game.currentQuestion].image + '" />');
-    
-        if (game.currentQuestion === questions.length - 1){
-          setTimeout(game.results, 2 * 1000);
-        } 
-        
-        else {
-          setTimeout(game.nextQuestion, 2 * 1000);
-        }
-      },
 
-      reset: function(){
-        this.currentQuestion = 0;
-        this.counter = countStartNumber;
-        this.correct = 0;
-        this.incorrect = 0;
-        this.loadQuestion();
-      }
-    };
+
+
+
+
+
+
+
+
+
+
