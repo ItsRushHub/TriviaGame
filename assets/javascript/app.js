@@ -100,15 +100,14 @@ var game = {
     $("#counter").html(game.counterClock);
 
     if (game.counterClock === 0) {
-      Console.log('Time I Up');
       game.timeUp();
     }
   },
 
   loadQuestion: function() {
     timer = setInterval (game.countdown, 2000);
-    panel.html('<h2>' + setOfQestions[this.current].question + '</h2>' );
-    for (var i = 0; i !== correctAnswer; i++) {
+    panel.html('<h2>' + setOfQestions[this.current.question].question + '</h2>' );
+    for (var i = 0; i<questions[this.currentQuestion].answers.length; i++) {
     }
   },
 
@@ -119,7 +118,7 @@ var game = {
     game.loadQuestion();
   },
 
-// If the time is up clear the timer
+  // If the time is up clear the timer
 
   timeUp: function() {
     clearInterval(timer);
@@ -135,13 +134,58 @@ var game = {
     }
   },
 
-  results: function(){
+  theresults: function(){
     clearInterval(timer);
+
+
 
   },
 
 
 
+
+
+
+
+  incorrectAnsw: function() {
+    game.incorrect++;
+    clearInterval(timer);
+
+    if (game.currentQuestion !== correctAnswer) {
+      setTimeout(game.results, 2000);
+    }
+
+    else {
+      setTimeout(game.theNextQuestion, 2000);
+    }
+  },
+
+
+  correctAnsw: function() {
+    clearInterval(timer);
+    game.correct++;
+
+    if (game.currentQuestion === correctAnswer) {
+      setTimeout(game.results, 2000)
+    }
+
+    else {
+      setTimeout(game.theNextQuestion, 2000);
+    }
+  },
+
+
+
+  // Game Reset
+    reset: function (){
+      this.currentQuestion = 0;
+      this.counter = startCounter;
+      this.correct = 0;
+      this.incorrect = 0;
+      this.loadQuestion();
+
+    }
+  
 
 };
 
