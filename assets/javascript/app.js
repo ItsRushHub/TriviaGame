@@ -1,7 +1,6 @@
 // Click button for starting the game
 $(document).ready(function() {
   $("#start").click(function() {
-    $('.bkgrdwrapper').prepend('<h2>Time Remaining: <span id="counter">20</span> Seconds</h2>');
     game.loadQuestion(),
     alert("Game is starting!");
 
@@ -12,22 +11,36 @@ $(document).ready(function() {
 
 // The timer starts
 
-var startCounter = 20;
-  var elem = document.getElementById("start");
+var counter = 20;
+var interval = setInterval (function () {
 
-  var timerId = setInterval (countdown, 1000);
+  document.getElementById("counter").innerHTML = counter;
+  counter--;
 
-  function countdown() {
-    if (timeLeft === 0) {
-      clearTimeout(timerId);
-      game.loadQuestion();
+    if (counter === 0) {
+      clearInterval(interval);
+      document.getElementById(counter).innerHTML = "Done";
+
+        alert("You're out of time!");
     }
+}, 1000);
 
-    else {
-      elem.innerHTML = timeLeft + ' seconds remaining';
-        timeLeft--;
-    }
-  };
+
+  // var elem = document.getElementById("start");
+
+  // var timerId = setInterval (countdown, 1000);
+
+  // function countdown() {
+  //   if (timeLeft === 0) {
+  //     clearTimeout(timerId);
+  //     game.loadQuestion();
+  //   }
+
+  //   else {
+  //     elem.innerHTML = timeLeft + ' seconds remaining';
+  //       timeLeft--;
+  //   }
+  // };
 
 
 // Set of questions
@@ -88,11 +101,19 @@ var questions = [{
     }];
 
 // Load questions when the game starts
+function questionsLoop(array){
+  var questionsArray = [];
+  for (var i = 0; i < array.length; i++){
+    questionsArray.push(array[i].question);
+  }
+  return questionsArray;
+}
+
 
 var game = {
-  setOfQestions: question,
+  setOfQestions: questionsLoop(questions),
   current: 0,
-  counter: startCounter,
+  counter: counter,
   correct: 0,
   incorrect: 0,
   countdown: function() {
@@ -112,7 +133,7 @@ var game = {
   },
 
   theNextQuestion: function() {
-    game.counterClock = startCounter
+    game.counterClock = counter
     $("#counter").html(game.counterClock);
     game.current++;
     game.loadQuestion();
@@ -179,7 +200,7 @@ var game = {
   // Game Reset
     reset: function (){
       this.currentQuestion = 0;
-      this.counter = startCounter;
+      this.counter = counter;
       this.correct = 0;
       this.incorrect = 0;
       this.loadQuestion();
