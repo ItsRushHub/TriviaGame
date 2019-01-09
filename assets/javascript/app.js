@@ -1,46 +1,28 @@
 // Click button for starting the game
-$(document).ready(function() {
-  $("#start").click(function() {
-    game.loadQuestion(),
-    alert("Game is starting!");
+ $(document).on("click", "#start", function(e) {
+  game.questionsArray();
 
-    console.log(start);
-  });
-});
-
-
-// The timer starts
-
-var counter = 20;
-var interval = setInterval (function () {
+  // The timer starts
+  var counter = 20;
+  var interval = setInterval (function () {
 
   document.getElementById("counter").innerHTML = counter;
   counter--;
 
     if (counter === 0) {
       clearInterval(interval);
-      document.getElementById(counter).innerHTML = "Done";
+      document.getElementById(counter).innerHTML = "Time is Up!";
 
         alert("You're out of time!");
     }
 }, 1000);
 
 
-  // var elem = document.getElementById("start");
 
-  // var timerId = setInterval (countdown, 1000);
 
-  // function countdown() {
-  //   if (timeLeft === 0) {
-  //     clearTimeout(timerId);
-  //     game.loadQuestion();
-  //   }
+ });
 
-  //   else {
-  //     elem.innerHTML = timeLeft + ' seconds remaining';
-  //       timeLeft--;
-  //   }
-  // };
+
 
 
 // Set of questions
@@ -100,121 +82,174 @@ var questions = [{
       image: "assets/images/jayzalbum.jpg"
     }];
 
+
+
+
+
+
 // Load questions when the game starts
-function questionsLoop(array){
+
+function questionsLoop(array) {
   var questionsArray = [];
-  for (var i = 0; i < array.length; i++){
+  for (var i = 0; i < array.length; i++) {
     questionsArray.push(array[i].question);
   }
   return questionsArray;
+};
+
+var game = {
+  setOfQuestions: questionsLoop(questions),
+  currentQuestion: 0,
+  counterClock: counter,
+  correct: 0,
+  incorrect: 0,
 }
 
 
-var game = {
-  setOfQestions: questionsLoop(questions),
-  current: 0,
-  counter: counter,
-  correct: 0,
-  incorrect: 0,
-  countdown: function() {
-    game.counterClock--;
-    $("#counter").html(game.counterClock);
 
-    if (game.counterClock === 0) {
-      game.timeUp();
-    }
-  },
 
-  loadQuestion: function() {
-    timer = setInterval (game.countdown, 2000);
-    panel.html('<h2>' + setOfQestions[this.current.question].question + '</h2>' );
-    for (var i = 0; i<questions[this.currentQuestion].answers.length; i++) {
-    }
-  },
 
-  theNextQuestion: function() {
-    game.counterClock = counter
-    $("#counter").html(game.counterClock);
-    game.current++;
-    game.loadQuestion();
-  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  // countdown: function() {
+  //   game.counterClock--;
+  //   $("#counter").html(game.counterClock);
+
+  //   if (game.counterClock === 0) {
+  //     console.log('TIME UP');
+  //     game.timeUp();
+  //   }
+  // },
+
+
+  
+  // loadQuestion: function() {
+  //   timer = setInterval (game.countdown, 2000);
+
+  //   // panel.html('<h2>' + setOfQestions[this.current.question].question + '</h2>' );
+  //   for (var i = 0; i<questions[this.currentQuestion].answers.length; i++) {
+  //     questionsArray.push(array[i].question);
+  //   }
+  //   return loadQuestion;
+  // },
+
+
+
+  // theNextQuestion: function() {
+  //   game.counterClock = counter
+  //   $("#counter").html(game.counterClock);
+  //   game.current++;
+  //   game.loadQuestion();
+  // },
 
   // If the time is up clear the timer
 
-  timeUp: function() {
-    clearInterval(timer);
-    $("#counter").html(game.counterClock);
+  // timeUp: function() {
+  //   clearInterval(timer);
+  //   $("#counter").html(game.counterClock);
 
-    if (game.current === questions.length - 1){
-      setTimeout(game.results, 2000);
-    }
+  //   if (game.current === questions.length - 1){
+  //     setTimeout(game.results, 2000);
+  //   }
 
-    else {
-      setTimeout(game.theNextQuestion, 2000);
+  //   else {
+  //     setTimeout(game.theNextQuestion, 2000);
 
-    }
-  },
+  //   }
+  // },
 
-  theresults: function(){
-    clearInterval(timer);
-
-
-
-  },
+  // theresults: function(){
+  //   clearInterval(timer);
+  // },
 
 
+  // incorrectAnsw: function() {
+  //   game.incorrect++;
+  //   clearInterval(timer);
+
+  //   if (game.currentQuestion !== correctAnswer) {
+  //     setTimeout(game.results, 2000);
+  //   }
+
+  //   else {
+  //     setTimeout(game.theNextQuestion, 2000);
+  //   }
+  // },
 
 
+  // correctAnsw: function() {
+  //   clearInterval(timer);
+  //   game.correct++;
 
+  //   if (game.currentQuestion === correctAnswer) {
+  //     setTimeout(game.results, 2000)
+  //   }
 
-
-  incorrectAnsw: function() {
-    game.incorrect++;
-    clearInterval(timer);
-
-    if (game.currentQuestion !== correctAnswer) {
-      setTimeout(game.results, 2000);
-    }
-
-    else {
-      setTimeout(game.theNextQuestion, 2000);
-    }
-  },
-
-
-  correctAnsw: function() {
-    clearInterval(timer);
-    game.correct++;
-
-    if (game.currentQuestion === correctAnswer) {
-      setTimeout(game.results, 2000)
-    }
-
-    else {
-      setTimeout(game.theNextQuestion, 2000);
-    }
-  },
+  //   else {
+  //     setTimeout(game.theNextQuestion, 2000);
+  //   }
+  // },
 
 
 
-  // Game Reset
-    reset: function (){
-      this.currentQuestion = 0;
-      this.counter = counter;
-      this.correct = 0;
-      this.incorrect = 0;
-      this.loadQuestion();
+  // // Game Reset
+  //   reset: function (){
+  //     this.currentQuestion = 0;
+  //     this.counter = counter;
+  //     this.correct = 0;
+  //     this.incorrect = 0;
+  //     this.loadQuestion();
 
-    }
+  //   }
   
 
-};
+// };
 
 
 
 
 
 
+// $(document).ready(function() {
+//   $("#start").click(function() {
+//     game.setOfQestions();
+
+//     alert("Game is starting!");
+//     console.log(start);
+//   });
+// });
+
+
+
+  // var elem = document.getElementById("start");
+
+  // var timerId = setInterval (countdown, 1000);
+
+  // function countdown() {
+  //   if (timeLeft === 0) {
+  //     clearTimeout(timerId);
+  //     game.loadQuestion();
+  //   }
+
+  //   else {
+  //     elem.innerHTML = timeLeft + ' seconds remaining';
+  //       timeLeft--;
+  //   }
+  // };
 
 
 
