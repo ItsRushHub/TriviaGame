@@ -1,6 +1,12 @@
 // Click button for starting the game
- $(document).on("click", "#start", function(e) {
-  game.questionsArray();
+var currentQuestion = 0; 
+$("#start").on("click", function(e) {
+  
+  //when game starts reset question counter to 0
+  currentQuestion = 0;
+  
+  //call the function to display the question
+  loadQuestion();
 
   // The timer starts
   var counter = 20;
@@ -17,12 +23,37 @@
     }
 }, 1000);
 
-
-
-
  });
 
+ //click listener for when user clicks an answer
+ $(document).on("click", ".answer-button", function(e){
+   //compare user's answer to the correct answer from our question object
+    if ($(this).attr('data-name') === questions[currentQuestion].correctAnswer) {
+      alert('right answer');
+    }
+    else {
+      alert('wrong answer');
+    }
 
+    //increase question counter
+    currentQuestion++;
+
+    //display next question on the screen
+    loadQuestion();
+ })
+
+
+function loadQuestion() {
+
+  //get a question from the array and display in #questions block
+  $("#questions").html(questions[currentQuestion].question);
+
+  //loop through answers and display them as buttons
+  for (var i = 0; i < questions[currentQuestion].answers.length; i++) {
+    $("#questions").append("<button class='answer-button' id='button' data-name='" + questions[currentQuestion].answers[i]
+    + "'>" + questions[currentQuestion].answers[i] + "</button>");
+  }
+}
 
 
 // Set of questions
@@ -124,132 +155,13 @@ var game = {
 
 
 
-  
-  // countdown: function() {
-  //   game.counterClock--;
-  //   $("#counter").html(game.counterClock);
 
-  //   if (game.counterClock === 0) {
-  //     console.log('TIME UP');
-  //     game.timeUp();
-  //   }
-  // },
+
+
 
 
   
-  // loadQuestion: function() {
-  //   timer = setInterval (game.countdown, 2000);
 
-  //   // panel.html('<h2>' + setOfQestions[this.current.question].question + '</h2>' );
-  //   for (var i = 0; i<questions[this.currentQuestion].answers.length; i++) {
-  //     questionsArray.push(array[i].question);
-  //   }
-  //   return loadQuestion;
-  // },
-
-
-
-  // theNextQuestion: function() {
-  //   game.counterClock = counter
-  //   $("#counter").html(game.counterClock);
-  //   game.current++;
-  //   game.loadQuestion();
-  // },
-
-  // If the time is up clear the timer
-
-  // timeUp: function() {
-  //   clearInterval(timer);
-  //   $("#counter").html(game.counterClock);
-
-  //   if (game.current === questions.length - 1){
-  //     setTimeout(game.results, 2000);
-  //   }
-
-  //   else {
-  //     setTimeout(game.theNextQuestion, 2000);
-
-  //   }
-  // },
-
-  // theresults: function(){
-  //   clearInterval(timer);
-  // },
-
-
-  // incorrectAnsw: function() {
-  //   game.incorrect++;
-  //   clearInterval(timer);
-
-  //   if (game.currentQuestion !== correctAnswer) {
-  //     setTimeout(game.results, 2000);
-  //   }
-
-  //   else {
-  //     setTimeout(game.theNextQuestion, 2000);
-  //   }
-  // },
-
-
-  // correctAnsw: function() {
-  //   clearInterval(timer);
-  //   game.correct++;
-
-  //   if (game.currentQuestion === correctAnswer) {
-  //     setTimeout(game.results, 2000)
-  //   }
-
-  //   else {
-  //     setTimeout(game.theNextQuestion, 2000);
-  //   }
-  // },
-
-
-
-  // // Game Reset
-  //   reset: function (){
-  //     this.currentQuestion = 0;
-  //     this.counter = counter;
-  //     this.correct = 0;
-  //     this.incorrect = 0;
-  //     this.loadQuestion();
-
-  //   }
-  
-
-// };
-
-
-
-
-
-
-// $(document).ready(function() {
-//   $("#start").click(function() {
-//     game.setOfQestions();
-
-//     alert("Game is starting!");
-//     console.log(start);
-//   });
-// });
-
-
-
-  // var elem = document.getElementById("start");
-
-  // var timerId = setInterval (countdown, 1000);
-
-  // function countdown() {
-  //   if (timeLeft === 0) {
-  //     clearTimeout(timerId);
-  //     game.loadQuestion();
-  //   }
-
-  //   else {
-  //     elem.innerHTML = timeLeft + ' seconds remaining';
-  //       timeLeft--;
-  //   }
-  // };
 
 
 
