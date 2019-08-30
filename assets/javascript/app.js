@@ -17,17 +17,17 @@ $("#start").on("click", function (e) {
     // $(".quizcontent").html(counter);
     if (counter <= 0) {
       clearInterval(interval);
-      
       document.getElementsByClassName("quizcontent").innerHTML = "Time is Up!";
-      loadQuestion();
-      document.getElementById("counter").innerHTML = counter;
+        
     }
-    
+    document.getElementById("counter").innerHTML = counter;
+    clearInterval(counter);
+    loadQuestion();
   }
 });
 
 
-var workArea = $(".quizcontent");
+var workArea = $("quizcontent");
 
 //click listener for when user clicks an answer
 $(document).on("click", ".answer-button", function (e) {
