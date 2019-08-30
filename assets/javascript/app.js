@@ -10,18 +10,22 @@ $("#start").on("click", function (e) {
 
   // The timer starts
   var counter = 5;
-  var interval = setInterval(function () {
+  var interval = setInterval(myTimer, 1000);
 
-    document.getElementById("counter").innerHTML = counter;
+ function myTimer() {
     counter--;
-    $(".quizcontent").html(counter);
-
-    if (counter === 0) {
+    // $(".quizcontent").html(counter);
+    if (counter <= 0) {
+      clearInterval(interval);
+      
       document.getElementsByClassName("quizcontent").innerHTML = "Time is Up!";
       loadQuestion();
+      document.getElementById("counter").innerHTML = counter;
     }
-  }, 1000);
+    
+  }
 });
+
 
 var workArea = $(".quizcontent");
 
