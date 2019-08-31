@@ -15,15 +15,18 @@ $("#start").on("click", function (e) {
  function myTimer() {
     counter--;
     // $(".quizcontent").html(counter);
-    if (counter <= 0) {
+    if (counter === 0) {
       clearInterval(interval);
-      document.getElementsByClassName("quizcontent").innerHTML = "Time is Up!";
-        
+      clearInterval(counter);
+      // document.getElementsByClassName("quizcontent").innerHTML = "Time is Up!";
+      alert("Time is Up!")
     }
-    document.getElementById("counter").innerHTML = counter;
-    clearInterval(counter);
+      document.getElementById("counter").innerHTML = counter;
+  };
+    //display next question on the screen & start counter
+    myTimer()
     loadQuestion();
-  }
+    
 });
 
 
