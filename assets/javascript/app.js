@@ -18,15 +18,17 @@ $("#start").on("click", function (e) {
     if (counter === 0) {
       clearInterval(interval);
       clearInterval(counter);
-      // document.getElementsByClassName("quizcontent").innerHTML = "Time is Up!";
-      alert("Time is Up!")
+
+      document.getElementById("questions").innerHTML = "Time is Up!";
+      workArea.html('<h3>The Correct Answer Is: ' + questions[currentQuestion].correctAnswer + '</h3>');
     }
+      
       document.getElementById("counter").innerHTML = counter;
+      
+
   };
     //display next question on the screen & start counter
-    myTimer()
     loadQuestion();
-    
 });
 
 
