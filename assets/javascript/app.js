@@ -20,16 +20,12 @@ $("#start").on("click", function (e) {
       clearInterval(counter);
 
       document.getElementById("questions").innerHTML = "Time is Up!";
-      workArea.html('<h3>The Correct Answer Is: ' + questions[currentQuestion].correctAnswer + '</h3>');
     }
-      
       document.getElementById("counter").innerHTML = counter;
-      
-
   };
-    //display next question on the screen & start counter
-    loadQuestion();
 });
+// //call the function to display the question
+// loadQuestion();
 
 
 var workArea = $("quizcontent");
