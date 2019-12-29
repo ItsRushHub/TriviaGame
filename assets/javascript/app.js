@@ -17,15 +17,17 @@ $("#start").on("click", function (e) {
     // $(".quizcontent").html(counter);
     if (counter === 0) {
       clearInterval(interval);
-      clearInterval(counter);
-
       document.getElementById("questions").innerHTML = "Time is Up!";
     }
-      document.getElementById("counter").innerHTML = counter;
+      else {
+        clearInterval(counter);
+        document.getElementById("counter").innerHTML = counter;
+        workArea.html('<h3>The Correct Answer Is: ' + questions[currentQuestion].correctAnswer + '</h3>');
+        workArea.append('<img src="' + questions[currentQuestion].image + '" />');
+      }
+      
   };
 });
-// //call the function to display the question
-// loadQuestion();
 
 
 var workArea = $("quizcontent");
