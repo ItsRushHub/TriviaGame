@@ -14,18 +14,12 @@ $("#start").on("click", function (e) {
 
  function myTimer() {
     counter--;
-    // $(".quizcontent").html(counter);
     if (counter === 0) {
       clearInterval(interval);
       document.getElementById("questions").innerHTML = "Time is Up!";
     }
-      else {
-        clearInterval(counter);
-        document.getElementById("counter").innerHTML = counter;
-        workArea.html('<h3>The Correct Answer Is: ' + questions[currentQuestion].correctAnswer + '</h3>');
-        workArea.append('<img src="' + questions[currentQuestion].image + '" />');
-      }
-      
+    document.getElementById("counter").innerHTML = counter;
+    workArea.html('<h3>The Correct Answer Is: ' + questions[currentQuestion].correctAnswer + '</h3>');
   };
 });
 
